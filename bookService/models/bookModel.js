@@ -14,6 +14,10 @@ const bookingSchema = mongoose.Schema({
     timeDate : {
         type : Date,
         required : true
+    },
+    journeyDate:{
+        type:Date,
+        required:true
     }
 
 })

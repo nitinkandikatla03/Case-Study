@@ -1,13 +1,17 @@
 const flightDetail = require('../models/flightModel')
 
-
+//get all flight details
 module.exports.flight_get = (req,res) =>{
-    res.send("flight details get")
+    flightDetail.find({})
+    .then ( (data) => {
+        res.send(data)
+    })
 }
 
+//add flight details
 module.exports.flight_post = (req,res) => {
-    const { name,from,to,classtype,price } = req.body
-    const flight = flightDetail.create({ name,from,to,classtype,price })
+    const { name,from,to,classType } = req.body
+    const flight = flightDetail.create({ name,from,to,classType })
     .then( (flight) => {
         console.log(flight)
         res.send(flight)
@@ -26,3 +30,18 @@ module.exports.flightByName = async (req,res) => {
         // res.send("succ");
     
 }
+
+//flight by id
+
+module.exports.flightById = (req,res) => {
+    const query = {
+        id : req.params.id
+    }
+    const flight = flightDetail.flightById()
+    .then( (data) => {
+        console.log(data)
+        res.send(data)
+    })
+}
+
+

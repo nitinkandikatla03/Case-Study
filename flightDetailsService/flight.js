@@ -11,7 +11,7 @@ app.use(bodyParser.json())
 
 //DB connection 
 
-const connection = 'mongodb+srv://nitinkandikatla:nitin@cluster.qotlb.mongodb.net/Flight-Booking?retryWrites=true&w=majority'
+const connection = 'mongodb+srv://nitinkandikatla:nitin@cluster.qotlb.mongodb.net/flightDetails?retryWrites=true&w=majority'
 const connector = mongoose.connect(connection,{
     useNewUrlParser: true,
     useUnifiedTopology: true,

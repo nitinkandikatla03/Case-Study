@@ -9,7 +9,7 @@ module.exports.bookDetails_get = (req,res) => {
          const user =  {
             user_id :data.data._id,
             flight_id :"",
-            timeDate : 1999
+            timeDate : new Date().now
          }
         
         axios.get("http://localhost:8030/Air Aisa`").then ( (data1) => {
@@ -24,6 +24,8 @@ module.exports.bookDetails_post = (req,res) => {
     // axios = get("http://localhost:8020/cccc@123").then( (data) => {
     //      const user = data
     //     res.send("user")
-    // })
+    // })c
+    console.log(req.body)
+    res.send("succ")
     
 }

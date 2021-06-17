@@ -13,14 +13,12 @@ const flightSchema = mongoose.Schema({
     to : {
         type : String
     },
-    classType : {
-        type : String
-    },
-    price : {
-        type : Number
-    }
+    classType:[
+             
+    ]
+    
 })
 
-const flightDetail = mongoose.model('flightDetail' ,flightSchema)
+const flightDetail = mongoose.model('flightdetail' ,flightSchema)
 
 module.exports = flightDetail
