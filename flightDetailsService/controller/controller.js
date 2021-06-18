@@ -34,14 +34,56 @@ module.exports.flightByName = async (req,res) => {
 //flight by id
 
 module.exports.flightById = (req,res) => {
-    const query = {
-        id : req.params.id
-    }
-    const flight = flightDetail.flightById()
-    .then( (data) => {
-        console.log(data)
-        res.send(data)
+    
+    console.log(req.params.id)
+    flightDetail.findById(req.params.id)
+    .then( (items) => {
+        console.log(items)
+    
+        res.send(items)
+        
+    })
+}
+
+//flight delete 
+  
+module.exports.flightDelete = (req,res) => {
+    flightDetail.findByIdAndRemove({_id: req.params.id})
+    .then( (items) => {
+        console.log(items + 'is deleted')
+        res.send(items)
     })
 }
 
 
+//flight update
+
+module.exports.flightUpdate = (req,res) => {
+    flightDetail.findByIdAndUpdate({_id:req.params.id}, req.body)
+    .then( () => {
+        flightDetail.findOne({_id: req.params.id}).then( (item) => {
+            res.send(item);
+        })
+    })
+    
+}
+
+//flight search by from - to
+module.exports.flightByLoc = (req,res) => {
+
+    const user=req.params.from
+    console.log(req.query)
+
+    flightDetail.find({$and:[{from: req.query.from},{to:req.query.to}]}, function(err, user) 
+    {
+        if (err)
+        {
+            res.send(err);
+        }
+        console.log(user);
+        res.json(user);
+
+    });
+
+
+}

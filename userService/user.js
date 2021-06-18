@@ -2,18 +2,20 @@ const express = require('express')
 const mongoose = require('mongoose')
 const routes = require('./routes/routes')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const app = express()
 
 
 //middlewares
-
+app.use(cookieParser())
 app.use(bodyParser.json())
+
 
 
 
 //DB connection
 
-const connection = 'mongodb+srv://nitinkandikatla:nitin@cluster.qotlb.mongodb.net/Flight-Booking?retryWrites=true&w=majority'
+const connection = 'mongodb+srv://nitinkandikatla:nitin@cluster.qotlb.mongodb.net/userDB?retryWrites=true&w=majority'
 const connector = mongoose.connect(connection,{
     useNewUrlParser: true,
     useUnifiedTopology: true,

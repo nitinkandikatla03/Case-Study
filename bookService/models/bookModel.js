@@ -4,16 +4,18 @@ const mongoose = require('mongoose')
 
 const bookingSchema = mongoose.Schema({
     user_id : {
-        type : mongoose.SchemaTypes.ObjectId,
+        // type : mongoose.SchemaTypes.ObjectId,
+        type:String,
         required : true
     },
     flight_id : {
-        type : mongoose.SchemaTypes.ObjectId,
+        // type : mongoose.SchemaTypes.ObjectId,
+        type:String,
         required : true
     },
     timeDate : {
         type : Date,
-        required : true
+        default:new Date()
     },
     journeyDate:{
         type:Date,

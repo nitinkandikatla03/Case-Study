@@ -1,9 +1,13 @@
 const express = require('express')
+// const { signup_post, signup_get, login_post } = require('../../userService/controller/controller')
 const router = express.Router()
-const {admin_get,admin_post, admin_post1 } = require('../controller/controller')
+const {login_get,login_post,signup_get,signup_post,adminById } = require('../controller/controller')
 
-router.get('/',admin_get)
-router.post('/',admin_post)
+router.get('/admin/login',login_get)
+router.get('/admin/signup',signup_get)
+router.post('/admin/login',login_post)
+router.post('/admin/signup',signup_post)
+router.get('/admin/adminById',adminById)
 
 
 

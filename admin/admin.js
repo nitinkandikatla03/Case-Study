@@ -2,11 +2,13 @@ const express = require('express')
 const mongoose = require('mongoose')
 const routes = require('./routes/routes')
 const bodyParser = require('body-parser')
+const cookieParser = require('cookie-parser')
 const app = express()
 
 
 
 //middleware
+app.use(cookieParser())
 app.use(bodyParser.json())
 
 //routes midddleware
