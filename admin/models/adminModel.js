@@ -4,6 +4,7 @@ const bcrypt = require('bcrypt')
 
 //admin Schema
 const adminSchema = new mongoose.Schema({
+   
     email: {
         type : String,
         required :true,
@@ -14,7 +15,20 @@ const adminSchema = new mongoose.Schema({
         type : String,
         required : true,
         minlength : 8
+    },
+    firstName: {
+        type:String,
+        required:true
+    },
+    lastName: {
+        type : String,
+        required : true
+    },
+    userType : {
+        type : Boolean,
+        default : true
     }
+
 })
 
 //password encryption

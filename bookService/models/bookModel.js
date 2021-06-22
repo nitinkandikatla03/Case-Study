@@ -13,11 +13,12 @@ const bookingSchema = mongoose.Schema({
         type:String,
         required : true
     },
-    timeDate : {
+    booked_time : {
         type : Date,
-        default:new Date()
+        default : Date.now()
+        
     },
-    journeyDate:{
+    Departure:{
         type:Date,
         required:true
     }

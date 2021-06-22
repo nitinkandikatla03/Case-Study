@@ -10,12 +10,22 @@ module.exports.flight_get = (req,res) =>{
 
 //add flight details
 module.exports.flight_post = (req,res) => {
-    const { name,from,to,classType } = req.body
-    const flight = flightDetail.create({ name,from,to,classType })
-    .then( (flight) => {
-        console.log(flight)
-        res.send(flight)
-    })
+    // console.log(req.userType)
+    // console.log(Object.keys(req.userType).length)
+    if(req.userType){
+        const { name,from,to,classType,Departure } = req.body
+        const flight = flightDetail.create({ name,from,to,classType,Departure })
+        .then( (flight) => {
+            console.log(flight)
+            res.status(200).json({ message: "Flight Added Successfully!" });
+        })
+        .catch((err) => {
+            res.status(201).json({ message: "Inter Error while adding details " });
+        })
+    }
+    else{
+        res.status(401).json({ message: "Unauthorized client" });  
+    }
 
 }
 
@@ -48,24 +58,41 @@ module.exports.flightById = (req,res) => {
 //flight delete 
   
 module.exports.flightDelete = (req,res) => {
-    flightDetail.findByIdAndRemove({_id: req.params.id})
-    .then( (items) => {
-        console.log(items + 'is deleted')
-        res.send(items)
-    })
+    try{
+        if(req.userType){
+            flightDetail.findByIdAndRemove({_id: req.params.id})
+            .then( (items) => {
+                console.log(items + 'is deleted')
+                res.status(200).json({ message: "Flight Deleted Successfully!" });
+                
+            })
+            .catch((err) => {
+                res.status(201).json({ message: "Inter Error while deleting details " });
+            })
+        }
+       
+    }
+    catch(err){
+        res.status(400).json({ message: "page not found" });  
+    }
 }
 
 
 //flight update
 
 module.exports.flightUpdate = (req,res) => {
-    flightDetail.findByIdAndUpdate({_id:req.params.id}, req.body)
-    .then( () => {
-        flightDetail.findOne({_id: req.params.id}).then( (item) => {
-            res.send(item);
+    if(req.userType){
+        flightDetail.findByIdAndUpdate({_id:req.params.id}, req.body)
+        .then( () => {
+            flightDetail.findOne({_id: req.params.id}).then( (item) => {
+                res.status(200).json({ message: "Flight updated Successfully!" });
+            })
         })
-    })
-    
+        .catch((err) => {
+            res.status(201).json({ message: "Inter Error while deleting details " });  
+        })
+    }
+  
 }
 
 //flight search by from - to

@@ -19,8 +19,9 @@ const handleErrors = (err) => {
 
 //create token
 const maxAge = 3 * 24 * 60 * 60
-const createToken = (id,email) => {
-    return jwt.sign({id,email}, 'nitinS', {
+const createToken = (id,email,userType) => {
+    console.log(userType)
+    return jwt.sign({id,email,userType}, 'nitinS', {
         expiresIn:maxAge
     })
 }
@@ -44,14 +45,16 @@ module.exports.signup_get = (req,res) => {
 module.exports.signup_post = (req,res) => {
     console.log(req.body)
     const adminObj = {
-        email : req.body.email,
-        password : req.body.password
+        email: req.body.email,
+        password: req.body.password,
+        firstName : req.body.firstName,
+        lastName : req.body.lastName
     }
     
     try{
         Admin.create(adminObj)
         .then( (admin) => {
-            const token  = createToken(admin._id,admin.email)
+            const token  = createToken(admin._id,admin.email,admin.userType)
             res.cookie('jwt',token,{httpOnly: true,maxAge: maxAge*1000})
             res.status(200).json({ message: "admin Created Successfully!" });
         })
@@ -89,7 +92,7 @@ module.exports.login_post = async (req,res) => {
     else{
     try {
         const admin = await Admin.login(email, password)
-        const token  = createToken(admin._id,admin.email)
+        const token  = createToken(admin._id,admin.email,admin.userType)
         res.cookie('jwt',token,{httpOnly: true,maxAge: maxAge*1000})
         res.status(200).json({ admin: admin._id  });
     }

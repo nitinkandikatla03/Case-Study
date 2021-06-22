@@ -14,9 +14,11 @@ const flightSchema = mongoose.Schema({
         type : String
     },
     classType:[
-             
-    ]
-    
+        
+    ],
+    Departure:{
+        type: Date
+    }
 })
 
 const flightDetail = mongoose.model('flightdetail' ,flightSchema)

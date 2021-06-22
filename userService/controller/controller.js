@@ -1,6 +1,10 @@
 const { findOne } = require('../models/userModel')
 const User = require('../models/userModel')
 const jwt = require('jsonwebtoken')
+// const cors = require('cors')
+
+
+
 
 
 //error handling
@@ -21,8 +25,8 @@ const handleErrors = (err) => {
 
 //JWT token 
 const maxAge = 3 * 24 * 60 * 60
-const createToken = (id, email) => {
-    return jwt.sign({ id, email }, 'nitinS', {
+const createToken = (id, email,userType) => {
+    return jwt.sign({ id, email,userType }, 'nitinS', {
         expiresIn: maxAge
     })
 }
@@ -31,11 +35,13 @@ const createToken = (id, email) => {
 //user signup get
 
 module.exports.signup_get = (req, res) => {
-    // User.find({})
-    // .then( (user) => {
-    //     res.send(user)
-    // })
-    res.send("user signip post")
+    User.find({})
+    .then( (user) => {
+        res.status(200).json(user);
+    })
+    .catch((err) => {
+        res.status(404).json({ message: "Email already exist" });
+    })
 }
 
 
@@ -44,13 +50,15 @@ module.exports.signup_get = (req, res) => {
 module.exports.signup_post = (req, res) => {
     const user = {
         email: req.body.email,
-        password: req.body.password
+        password: req.body.password,
+        firstName : req.body.firstName,
+        lastName : req.body.lastName
     }
     try {
         User.create(user)
             .then((user) => {
                 console.log(user)
-                const token = createToken(user._id, user.email)
+                const token = createToken(user._id, user.email,user.userType)
                 res.cookie('jwt', token, { httpOnly: true, maxAge: maxAge * 1000 })
                 res.status(200).json({ message: "User Created Successfully!" });
             })
@@ -61,6 +69,21 @@ module.exports.signup_post = (req, res) => {
         const errors = "page not found"
         res.status(400).json({ errors });
     }
+    // console.log(user);
+}
+
+// update user by id
+
+module.exports.updateUserById = (req,res) => {
+    User.findByIdAndUpdate({_id:req.params.id}, req.body)
+        .then( () => {
+            User.findOne({_id: req.params.id}).then( (item) => {
+                res.status(200).json({ message: "user updated Successfully!" });
+            })
+        })
+        .catch((err) => {
+            res.status(201).json({ message: "Inter Error while updating details " });  
+        })
 }
 
 
@@ -104,7 +127,7 @@ module.exports.login_post = async (req, res) => {
             catch (err) {
                 const errors = handleErrors(err);
                 const { email, password } = errors
-                res.status(400).json({ message: email.length > 0 ? email : password });
+                res.status(401).json({ message: email.length > 0 ? email : password });
             }
         }
     }
