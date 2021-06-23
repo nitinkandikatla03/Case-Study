@@ -2,10 +2,19 @@ const flightDetail = require('../models/flightModel')
 
 //get all flight details
 module.exports.flight_get = (req,res) =>{
-    flightDetail.find({})
-    .then ( (data) => {
-        res.send(data)
-    })
+    if(req.userType){
+        flightDetail.find({})
+        .then( (flight) => {
+            console.log(flight)
+            res.status(200).json(flight);
+        })
+        .catch((err) => {
+            res.status(201).json({ message: "Inter Error while adding details " });
+        })
+    }
+    else{
+        res.status(401).json({ message: "Unauthorized client" });  
+    }
 }
 
 //add flight details
@@ -32,14 +41,14 @@ module.exports.flight_post = (req,res) => {
 
 //flight by name
 
-module.exports.flightByName = async (req,res) => {
-        const query = { name : req.params.name}
-        const user = await flightDetail.findOne(query)
-        console.log(user.name)
-        res.json (user)
-        // res.send("succ");
+// module.exports.flightByName = async (req,res) => {
+//         const query = { name : req.params.name}
+//         const user = await flightDetail.findOne(query)
+//         console.log(user.name)
+//         res.json (user)
+//         // res.send("succ");
     
-}
+// }
 
 //flight by id
 

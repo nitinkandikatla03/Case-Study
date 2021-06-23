@@ -72,6 +72,27 @@ describe('post /users/signup',()=>{
         })
     })
 }) 
+
+
+//patch
+// describe('patch /users/signup',()=>{
+//     it('it should put data',(done)=>{
+//         user = {
+//             name:"vaibhav@123",
+//         }
+//         id = '60d05538b20ac32f10dc76a3';
+//         chai.request(dealer)
+//         .put('/users/'+id)
+//         .send(user)
+//         .end((err,response)=>{
+//             response.should.have.status(200);
+//             response.body.should.be.a('object');
+            
+//         done();
+//         })
+//     })
+// }) 
+
 // describe("GET Request", function () {
 //     describe("Getting an all the users ",function(){
 //     it("A successful get request should return status code equal to 200 and all the users.", (done) => {

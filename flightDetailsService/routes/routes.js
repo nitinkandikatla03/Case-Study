@@ -64,6 +64,11 @@ const authAdmin = require('../../middleware/authMiddleware')
  *               type: object
  *               items:
  *                 $ref: '#/components/schemas/flight'
+ *       401:
+ *         description: Unauthorized client
+ *       205:
+ *         description: Please login
+
  */
 
 router.get('/getFlight',authAdmin,flight_get)
@@ -83,7 +88,7 @@ router.get('/getFlight',authAdmin,flight_get)
  *             $ref: '#/components/schemas/flight'
  *     responses:
  *       200:
- *         description: The book was successfully created
+ *         description: The flight added successfully
  *         content:
  *           application/json:
  *             schema:
@@ -204,12 +209,17 @@ router.put('/updateFlight/:id',authAdmin,flightUpdate)
  *     tags: [CRUD on flight by user]
  *     parameters:
  *       - in: query
- *         from: string
- *         to: string
+ *         name: from
  *         schema:
  *           type: string
  *         required: true
- *         description: The flight source destination
+ *         description: The flight source
+ *       - in: query
+ *         name: to
+ *         schema:
+ *           type: string
+ *         required: true
+ *         description: The flight destination
  *     responses:
  *       200:
  *         description: The flight description by sou-des
