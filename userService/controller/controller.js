@@ -99,12 +99,13 @@ module.exports.userByName = async (req, res) => {
 
 module.exports.userById = async (req, res) => {
     const user = await User.findById(req.params.id)
-    res.json(user)
+    res.status(200).json(user);
 }
 
 
 //user login get
 module.exports.login_get = (req, res) => {
+    console.log("succ")
     res.send('user login get')
 }
 

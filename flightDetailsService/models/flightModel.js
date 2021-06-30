@@ -18,6 +18,10 @@ const flightSchema = mongoose.Schema({
     ],
     Departure:{
         type: Date
+    },
+    numOfticket: {
+        type: Number,
+        default: 100
     }
 })
 

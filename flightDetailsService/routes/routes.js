@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()   
-const {flight_get,flight_post, flightByName,flightById, flightDelete,flightUpdate,flightByLoc} = require('../controller/controller')
+const {flight_get,flight_post, flightByName,flightById, flightDelete,flightUpdate,flightByLoc,UpdateFlightSeat} = require('../controller/controller')
 const authAdmin = require('../../middleware/authMiddleware')
 
 /**
@@ -71,7 +71,8 @@ const authAdmin = require('../../middleware/authMiddleware')
 
  */
 
-router.get('/getFlight',authAdmin,flight_get)
+// router.get('/getFlight',authAdmin,flight_get)
+router.get('/getFlight',flight_get)
 
 
 /**
@@ -103,7 +104,8 @@ router.get('/getFlight',authAdmin,flight_get)
  *         description: page not found 
  */
 
-router.post('/addFlight',authAdmin,flight_post)
+// router.post('/addFlight',authAdmin,flight_post)
+router.post('/addFlight',flight_post)
 // router.get('/flight/:name',flightByName)
 
 
@@ -131,7 +133,8 @@ router.post('/addFlight',authAdmin,flight_post)
  *         description: The book was not found
  */
 
-router.get('/flightById/:id',authAdmin,flightById)
+// router.get('/flightById/:id',authAdmin,flightById)
+router.get('/flightById/:id',flightById)
 
 
 /**
@@ -161,7 +164,8 @@ router.get('/flightById/:id',authAdmin,flightById)
 
 
 
-router.delete('/deleteFlight/:id',authAdmin,flightDelete)
+// router.delete('/deleteFlight/:id',authAdmin,flightDelete)
+router.delete('/deleteFlight/:id',flightDelete)
 
 /**
  * @swagger
@@ -196,7 +200,10 @@ router.delete('/deleteFlight/:id',authAdmin,flightDelete)
  */
 
 
-router.put('/updateFlight/:id',authAdmin,flightUpdate)
+// router.put('/updateFlight/:id',authAdmin,flightUpdate)
+router.put('/updateFlight/:id',flightUpdate)
+
+router.put('/updateFlightSeat/:id',UpdateFlightSeat)
 
 //search by loc
 

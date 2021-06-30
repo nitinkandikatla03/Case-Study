@@ -24,7 +24,7 @@ chai.should();
 chai.use(chaiHttp);
 
 
-//get farmer
+//get user
 describe('Get /users',()=>{
     it('it should get all data',(done)=>{
         chai.request(user)
@@ -39,28 +39,28 @@ describe('Get /users',()=>{
 
 
 //get by id
-describe('Get /users',()=>{
-    it('it should get by id',(done)=>{
-        id = '60d070c16812e75494f07894';
-        chai.request(user)
-        .get('/users/'+id)
-        .end((err,response)=>{
-            response.should.have.status(200);
-            response.body.should.be.a('object');
-        done();
-        })
-    })
-})
+// describe('Get /users',()=>{
+//     it('it should get by id',(done)=>{
+//         id = '60d05538b20ac32f10dc76a3';
+//         chai.request(user)
+//         .get('/users/'+id)
+//         .end((err,response)=>{
+//             response.should.have.status(200);
+//             response.body.should.be.a('object');
+//         done();
+//         })
+//     })
+// })
 
 
 //post user 
 describe('post /users/signup',()=>{
     it('it should post data',(done)=>{
         demo = {
-            email:"ttttt@123",
-            password:"dealer18@gmail.com",
-            firstName:"qwerty",
-            lastName:"qwerytgv"
+            email:"shirish@123",
+            password:"123456789",
+            firstName:"shirish",
+            lastName:"gardas"
         }
         chai.request(user)
         .post('/users/signup')

@@ -1,7 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const {signup_get, signup_post, userByName, login_get, login_post, userById,updateUserById} = require('../controller/controller')
-
+const authAdmin = require('../../middleware/authMiddleware')
 
 /**
  * @openapi
@@ -139,7 +139,7 @@ router.post('/signup',signup_post)
  *              '500':
  *                  description: There was some server error.
  */
-router.put('/:id',updateUserById)
+router.put('/:id',authAdmin,updateUserById)
 
 /**
  * @openapi
@@ -166,7 +166,7 @@ router.put('/:id',updateUserById)
  */
 
 
-router.get('/:id',userById)
+// router.get('/:id',userById)
 
 //Login
 

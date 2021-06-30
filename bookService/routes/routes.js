@@ -19,6 +19,7 @@ const jwtAuth = require('../../middleware/authMiddleware')
  *                  - flight_id
  *                  - booked_time
  *                  - Departure
+ *                  - numOfSeats
  *              properties:
  *                  id:
  *                      type: string
@@ -35,11 +36,15 @@ const jwtAuth = require('../../middleware/authMiddleware')
  *                  Departure:
  *                      type: array
  *                      description: type of class.
+ *                  numOfSeats:
+ *                      type: number
+ *                      description: type of class.
  *              example:
  *                  user_id: 60d070c16812e75494f07894
  *                  flight_id: 60d070c16812e75494f07894
  *                  booked_time: 2021-06-19T11:28:10.716+00:00
  *                  Departure: 2021-06-05T18:30:00.000+00:00
+ *                  numOfSeats: 5
  */
 
 
@@ -133,5 +138,10 @@ router.delete('/delBook/:id',jwtAuth,deleteBookDetail)
  */
 
 router.get('/viewBook',jwtAuth,viewBook)
+
+
+router.get('/payment', (req,res) => {
+  res.render('payment')
+})
 
 module.exports = router

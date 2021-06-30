@@ -14,6 +14,15 @@ const app = express()
 app.use(cookieParser())
 app.use(bodyParser.json())
 
+// enable cors to the server
+const corsOpt = {
+    origin: process.env.CORS_ALLOW_ORIGIN || '*', // this work well to configure origin url in the server
+    methods: ['GET', 'PUT', 'POST', 'DELETE', 'OPTIONS'], // to works well with web app, OPTIONS is required
+    allowedHeaders: ['Content-Type', 'Authorization'] // allow json and token in the headers
+};
+app.use(cors(corsOpt)); // cors for all the routes of the application
+app.options('*', cors(corsOpt)); // automatic cors gen for HTTP verbs in all routes, This can be redundant but I kept to be sure that will always work
+
   const options = {
     definition: {
         openapi: '3.0.0',
@@ -68,6 +77,9 @@ const connector = mongoose.connect(connection,{
      app.listen(port, () => {
      console.log(`Example app listening at http://localhost:${port}`)
      })
+     app.get("/",(req,res)=>{
+        res.send("connected");
+    });
  }) 
 
 

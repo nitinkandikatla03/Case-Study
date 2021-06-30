@@ -2,39 +2,38 @@ const flightDetail = require('../models/flightModel')
 
 //get all flight details
 module.exports.flight_get = (req,res) =>{
-    if(req.userType){
+    // if(req.userType){
         flightDetail.find({})
         .then( (flight) => {
-            console.log(flight)
             res.status(200).json(flight);
         })
         .catch((err) => {
             res.status(201).json({ message: "Inter Error while adding details " });
         })
-    }
-    else{
-        res.status(401).json({ message: "Unauthorized client" });  
-    }
+    // }
+    // else{
+    //     res.status(401).json({ message: "Unauthorized client" });  
+    // }
 }
 
 //add flight details
 module.exports.flight_post = (req,res) => {
     // console.log(req.userType)
     // console.log(Object.keys(req.userType).length)
-    if(req.userType){
+    // if(req.userType){
         const { name,from,to,classType,Departure } = req.body
         const flight = flightDetail.create({ name,from,to,classType,Departure })
         .then( (flight) => {
-            console.log(flight)
+            // console.log(flight)
             res.status(200).json({ message: "Flight Added Successfully!" });
         })
         .catch((err) => {
             res.status(201).json({ message: "Inter Error while adding details " });
         })
-    }
-    else{
-        res.status(401).json({ message: "Unauthorized client" });  
-    }
+    // }
+    // else{
+    //     res.status(401).json({ message: "Unauthorized client" });  
+    // }
 
 }
 
@@ -53,14 +52,14 @@ module.exports.flight_post = (req,res) => {
 //flight by id
 
 module.exports.flightById = (req,res) => {
-    
+    console.log("IN flight",req.params);
     console.log(req.params.id)
     flightDetail.findById(req.params.id)
     .then( (items) => {
-        console.log(items)
-    
-        res.send(items)
-        
+        res.status(200).json(items);
+    })
+    .catch((err) => {
+        res.status(201).json({ message: "Inter Error while deleting details " });
     })
 }
 
@@ -68,7 +67,7 @@ module.exports.flightById = (req,res) => {
   
 module.exports.flightDelete = (req,res) => {
     try{
-        if(req.userType){
+        // if(req.userType){
             flightDetail.findByIdAndRemove({_id: req.params.id})
             .then( (items) => {
                 console.log(items + 'is deleted')
@@ -78,7 +77,7 @@ module.exports.flightDelete = (req,res) => {
             .catch((err) => {
                 res.status(201).json({ message: "Inter Error while deleting details " });
             })
-        }
+        // }
        
     }
     catch(err){
@@ -90,7 +89,7 @@ module.exports.flightDelete = (req,res) => {
 //flight update
 
 module.exports.flightUpdate = (req,res) => {
-    if(req.userType){
+    // if(req.userType){
         flightDetail.findByIdAndUpdate({_id:req.params.id}, req.body)
         .then( () => {
             flightDetail.findOne({_id: req.params.id}).then( (item) => {
@@ -100,26 +99,35 @@ module.exports.flightUpdate = (req,res) => {
         .catch((err) => {
             res.status(201).json({ message: "Inter Error while deleting details " });  
         })
-    }
+    // }
   
+}
+
+module.exports.UpdateFlightSeat = (req,res) => {
+    
+    flightDetail.findByIdAndUpdate({_id:req.params.id}, { $inc: {numOfticket : -req.body.numOfticket}})
+    .then(
+        data => {
+
+            res.send("succ")
+        }).catch(err => {
+            res.send("error")
+
+    })
 }
 
 //flight search by from - to
 module.exports.flightByLoc = (req,res) => {
 
-    const user=req.params.from
-    console.log(req.query)
+    // const user=req.params.from
+    // console.log(req.query)
 
-    flightDetail.find({$and:[{from: req.query.from},{to:req.query.to}]}, function(err, user) 
-    {
-        if (err)
-        {
-            res.send(err);
-        }
-        console.log(user);
-        res.json(user);
-
-    });
-
+    flightDetail.find({$and:[{from: req.query.from},{to:req.query.to}]})
+    .then( (items) => {
+        res.status(200).json(items);
+    })
+    .catch((err) => {
+        res.status(201).json({ message: "Inter Error while deleting details " });
+    })
 
 }

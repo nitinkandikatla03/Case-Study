@@ -21,7 +21,11 @@ const bookingSchema = mongoose.Schema({
     Departure:{
         type:Date,
         required:true
+    },
+    numOfSeats:{
+        type: Number
     }
+
 
 })
 
