@@ -78,7 +78,8 @@ const connector = mongoose.connect(connection,{
     app.get("/",(req,res)=>{
         res.send("connected");
     });
- 
-    }) 
+  }) 
+
+  module.exports = app
 
 

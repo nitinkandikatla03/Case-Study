@@ -1,6 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
-const user = require('../user');
+const admin = require('../admin');
 var assert = require("assert");
 
 
@@ -8,28 +8,8 @@ chai.should();
 chai.use(chaiHttp);
 
 
-//get user
-describe('Get /users',()=>{
-    it('it should get all data',(done)=>{
-        chai.request(user)
-        .get('/users/signup')
-        .end((err,response)=>{
-            response.should.have.status(200);
-            response.body.should.be.a('array');
-        done();
-        })
-    })
-    it('it should Not get all data',(done)=>{
-        chai.request(user)
-        .get('/user/signup')
-        .end((err,response)=>{
-            response.should.have.status(404);
-        done();
-        })
-    })
-})
-
-describe('post /users/addUser',()=>{
+//post signup
+describe('post /admins/addAdmin',()=>{
     it('it should post data',(done)=>{
         demo = {
             email : "RRR@",
@@ -37,8 +17,8 @@ describe('post /users/addUser',()=>{
             firstName :  "abc",
             lastName: "pqr"
         }
-        chai.request(user)
-        .post('/users/signup')
+        chai.request(admin)
+        .post('/admins/signup')
         .send(demo)
         .end((err,response)=>{
             response.should.have.status(200);
@@ -46,15 +26,15 @@ describe('post /users/addUser',()=>{
         done();
         })
     })
-    it('Should NOT POST the user details', (done) => {
+    it('Should NOT POST the admin details', (done) => {
         demo = {
                 email : "RRR@",
                 password : "123456789",
                 firstName :  "abc",
                 lastName: "pqr"
             }
-        chai.request(user)
-            .post("/user/signup")
+        chai.request(admin)
+            .post("/admin/signup")
             .send(demo)
             .end((err, response) => {
                 response.should.have.status(404);
@@ -64,28 +44,30 @@ describe('post /users/addUser',()=>{
 }) 
 
 
-describe('post /users/login',()=>{
-    it('it should login user',(done)=>{
+
+//post login
+describe('post /admins/login',()=>{
+    it('it should login admin',(done)=>{
         demo = {
             email : "RRR@",
             password : "123456789"
         }
-        chai.request(user)
-        .post('/users/login')
+        chai.request(admin)
+        .post('/admins/login')
         .send(demo)
         .end((err,response)=>{
             response.should.have.status(200);
-            response.body.should.be.a('object');
+            // response.body.should.be.a('object');
         done();
         })
     })
-    it('Should NOT login the user', (done) => {
+    it('Should NOT login the admin', (done) => {
         demo = {
                 email : "RRR@",
                 password : "123456789"
             }
-        chai.request(user)
-            .post("/user/login")
+        chai.request(admin)
+            .post("/admin/login")
             .send(demo)
             .end((err, response) => {
                 response.should.have.status(404);
@@ -93,5 +75,3 @@ describe('post /users/login',()=>{
             })
     })
 }) 
-
-

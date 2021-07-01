@@ -71,8 +71,8 @@ const authAdmin = require('../../middleware/authMiddleware')
 
  */
 
-// router.get('/getFlight',authAdmin,flight_get)
-router.get('/getFlight',flight_get)
+router.get('/getFlight',authAdmin,flight_get)
+
 
 
 /**
@@ -104,8 +104,9 @@ router.get('/getFlight',flight_get)
  *         description: page not found 
  */
 
-// router.post('/addFlight',authAdmin,flight_post)
-router.post('/addFlight',flight_post)
+router.post('/addFlight',authAdmin,flight_post)
+// router.post('/addFlight',flight_post)
+
 // router.get('/flight/:name',flightByName)
 
 
@@ -133,8 +134,8 @@ router.post('/addFlight',flight_post)
  *         description: The book was not found
  */
 
-// router.get('/flightById/:id',authAdmin,flightById)
-router.get('/flightById/:id',flightById)
+router.get('/flightById/:id',authAdmin,flightById)
+// router.get('/flightById/:id',flightById)
 
 
 /**
@@ -164,8 +165,8 @@ router.get('/flightById/:id',flightById)
 
 
 
-// router.delete('/deleteFlight/:id',authAdmin,flightDelete)
-router.delete('/deleteFlight/:id',flightDelete)
+router.delete('/deleteFlight/:id',authAdmin,flightDelete)
+// router.delete('/deleteFlight/:id',flightDelete)
 
 /**
  * @swagger
@@ -200,8 +201,8 @@ router.delete('/deleteFlight/:id',flightDelete)
  */
 
 
-// router.put('/updateFlight/:id',authAdmin,flightUpdate)
-router.put('/updateFlight/:id',flightUpdate)
+router.put('/updateFlight/:id',authAdmin,flightUpdate)
+// router.put('/updateFlight/:id',flightUpdate)
 
 router.put('/updateFlightSeat/:id',UpdateFlightSeat)
 

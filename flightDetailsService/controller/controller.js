@@ -2,7 +2,7 @@ const flightDetail = require('../models/flightModel')
 
 //get all flight details
 module.exports.flight_get = (req,res) =>{
-    // if(req.userType){
+    if(req.userType){
         flightDetail.find({})
         .then( (flight) => {
             res.status(200).json(flight);
@@ -10,17 +10,17 @@ module.exports.flight_get = (req,res) =>{
         .catch((err) => {
             res.status(201).json({ message: "Inter Error while adding details " });
         })
-    // }
-    // else{
-    //     res.status(401).json({ message: "Unauthorized client" });  
-    // }
+    }
+    else{
+        res.status(401).json({ message: "Unauthorized client" });  
+    }
 }
 
 //add flight details
 module.exports.flight_post = (req,res) => {
     // console.log(req.userType)
     // console.log(Object.keys(req.userType).length)
-    // if(req.userType){
+    if(req.userType){
         const { name,from,to,classType,Departure } = req.body
         const flight = flightDetail.create({ name,from,to,classType,Departure })
         .then( (flight) => {
@@ -30,10 +30,10 @@ module.exports.flight_post = (req,res) => {
         .catch((err) => {
             res.status(201).json({ message: "Inter Error while adding details " });
         })
-    // }
-    // else{
-    //     res.status(401).json({ message: "Unauthorized client" });  
-    // }
+    }
+    else{
+        res.status(401).json({ message: "Unauthorized client" });  
+    }
 
 }
 
@@ -67,7 +67,7 @@ module.exports.flightById = (req,res) => {
   
 module.exports.flightDelete = (req,res) => {
     try{
-        // if(req.userType){
+        if(req.userType){
             flightDetail.findByIdAndRemove({_id: req.params.id})
             .then( (items) => {
                 console.log(items + 'is deleted')
@@ -77,7 +77,7 @@ module.exports.flightDelete = (req,res) => {
             .catch((err) => {
                 res.status(201).json({ message: "Inter Error while deleting details " });
             })
-        // }
+        }
        
     }
     catch(err){
@@ -89,7 +89,7 @@ module.exports.flightDelete = (req,res) => {
 //flight update
 
 module.exports.flightUpdate = (req,res) => {
-    // if(req.userType){
+    if(req.userType){
         flightDetail.findByIdAndUpdate({_id:req.params.id}, req.body)
         .then( () => {
             flightDetail.findOne({_id: req.params.id}).then( (item) => {
@@ -99,7 +99,7 @@ module.exports.flightUpdate = (req,res) => {
         .catch((err) => {
             res.status(201).json({ message: "Inter Error while deleting details " });  
         })
-    // }
+    }
   
 }
 

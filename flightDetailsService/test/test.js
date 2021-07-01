@@ -1,7 +1,6 @@
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 const flight = require('../flight');
-//const database = require("../routes/dbRoute");
 var assert = require("assert");
 
 
@@ -19,6 +18,7 @@ describe('Get /flights',()=>{
     it('it should get all data',(done)=>{
         chai.request(flight)
         .get('/flights/getFlight')
+        .set('Cookie', 'jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZDk4YjVlZTcxZDFlNWNkOGRiM2QyNyIsImVtYWlsIjoic3VuaWxoaXBwQDEyMyIsInVzZXJUeXBlIjp0cnVlLCJpYXQiOjE2MjUwNDk0OTQsImV4cCI6MTYyNTMwODY5NH0.pbbezijmk9aynrm4wNEeTNVV6dpNxU-FmEVp3OktJ10;')
         .end((err,response)=>{
             response.should.have.status(200);
             response.body.should.be.a('array');
@@ -36,7 +36,7 @@ describe('Get /flights',()=>{
 })
 
 
-// .set('Cookie', 'jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZDk4YjVlZTcxZDFlNWNkOGRiM2QyNyIsImVtYWlsIjoic3VuaWxoaXBwQDEyMyIsInVzZXJUeXBlIjp0cnVlLCJpYXQiOjE2MjUwNDk0OTQsImV4cCI6MTYyNTMwODY5NH0.pbbezijmk9aynrm4wNEeTNVV6dpNxU-FmEVp3OktJ10;')
+
 
 // post flight 
 describe('post /flights/addFlight',()=>{
@@ -51,6 +51,7 @@ describe('post /flights/addFlight',()=>{
         }
         chai.request(flight)
         .post('/flights/addFlight')
+        .set('Cookie', 'jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZDk4YjVlZTcxZDFlNWNkOGRiM2QyNyIsImVtYWlsIjoic3VuaWxoaXBwQDEyMyIsInVzZXJUeXBlIjp0cnVlLCJpYXQiOjE2MjUwNDk0OTQsImV4cCI6MTYyNTMwODY5NH0.pbbezijmk9aynrm4wNEeTNVV6dpNxU-FmEVp3OktJ10;')
         .send(demo)
         .end((err,response)=>{
                 // console.log(response)
@@ -78,6 +79,8 @@ describe('post /flights/addFlight',()=>{
     })
 }) 
 
+
+// put flight 
 describe('/put/:id book', () => {
     it('it should UPDATE a flight given the id', (done) => {
        const demo = {
@@ -86,6 +89,7 @@ describe('/put/:id book', () => {
         id = '60cb3a61f402ad0e2cea42ff';
         chai.request(flight)
         .put('/flights/updateFlight/'+id)
+        .set('Cookie', 'jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZDk4YjVlZTcxZDFlNWNkOGRiM2QyNyIsImVtYWlsIjoic3VuaWxoaXBwQDEyMyIsInVzZXJUeXBlIjp0cnVlLCJpYXQiOjE2MjUwNDk0OTQsImV4cCI6MTYyNTMwODY5NH0.pbbezijmk9aynrm4wNEeTNVV6dpNxU-FmEVp3OktJ10;')
         .send(demo)
         .end((err,response)=>{
             response.should.have.status(200);
@@ -110,12 +114,13 @@ describe('/put/:id book', () => {
      })
 });
 
-
+// delete flight 
 describe('/DELETE/:id flight', () => {
     it('it should DELETE a flight given the id', (done) => {
-            let id = '60cdd824a9a0f12ec00a521e';
+            let id = '60dd5791e956566f8cbf66fc';
               chai.request(flight)
               .delete('/flights/deleteFlight/' + id)
+              .set('Cookie', 'jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYwZDk4YjVlZTcxZDFlNWNkOGRiM2QyNyIsImVtYWlsIjoic3VuaWxoaXBwQDEyMyIsInVzZXJUeXBlIjp0cnVlLCJpYXQiOjE2MjUwNDk0OTQsImV4cCI6MTYyNTMwODY5NH0.pbbezijmk9aynrm4wNEeTNVV6dpNxU-FmEVp3OktJ10;')
               .end((err, res) => {
                     res.should.have.status(200);
                     res.body.should.be.a('object');
